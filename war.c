@@ -8,42 +8,38 @@ struct Territorio {
     int tropas;        // Quantidade de tropas
 };
 
+void limparBuffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
+
 int main() {
-    // Vetor para armazenar 5 territórios
+    // Declaração do vetor para armazenar 5 territórios
     struct Territorio territorios[5];
-    char buffer[10]; // Buffer auxiliar para limpar entrada numérica
     
     printf("*-*-* CADASTRO TERRITORIAL MUNDO WAR *-*-*\n\n");
     
     // Entrada de dados - cadastro dos territórios
     for(int i = 0; i < 5; i++) {
-        // (i+1) Transforma posição 0 em 1 e assim sucessivamente
         printf("\n-*-*- Cadastro do Territorio %d -*-*-\n", i + 1);
         
-        // Limpa o buffer do teclado antes de cada leitura
-        int c;
-        while ((c = getchar()) != '\n' && c != EOF);
-        
-        // Leitura do nome do território com fgets
+        // Leitura do nome do território
         printf("Digite o nome do territorio: ");
         fgets(territorios[i].nome, 30, stdin);
-        // Remove o \n do final se existir
         territorios[i].nome[strcspn(territorios[i].nome, "\n")] = '\0';
         
-        // Leitura da cor do exército com fgets
+        // Leitura da cor do exército
         printf("Digite a cor do exercito: ");
         fgets(territorios[i].cor, 10, stdin);
-        // Remove o \n do final se existir
         territorios[i].cor[strcspn(territorios[i].cor, "\n")] = '\0';
         
-        // Leitura da quantidade de tropas com scanf, melhor para numeros
+        // Leitura da quantidade de tropas
         printf("Digite a quantidade de tropas: ");
         scanf("%d", &territorios[i].tropas);
         
-        // Limpa o buffer após o scanf para preparar próxima iteração
-        while ((c = getchar()) != '\n' && c != EOF);
+        // UMA ÚNICA limpeza de buffer após o scanf
+        limparBuffer();
         
-        // Linha em branco para melhorar organização e visualização
         printf("\n"); 
     }
     
