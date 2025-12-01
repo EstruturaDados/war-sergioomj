@@ -19,7 +19,7 @@ struct Territorio {
 #define DADO_MAX 6
 #define NUM_MISSOES 5
 
-// Protótipos de funções
+// funções
 void limparBuffer();
 void cadastrarTerritorios(struct Territorio* territorios, int quantidade);
 void exibirTerritorios(struct Territorio* territorios, int quantidade);
@@ -46,7 +46,7 @@ void inicializarMissoes(char* missoes[]) {
     missoes[4] = "Conquistar 2 territorios seguidos em um turno";
 }
 
-// Função para atribuir uma missão aleatória ao jogador
+// Função para uma missão aleatória ao jogador
 void atribuirMissao(char** destinoMissao, char* missoes[], int totalMissoes) {
     // Sorteia um índice aleatório
     int indice = rand() % totalMissoes;
@@ -125,7 +125,7 @@ int verificarMissao(char* missao, struct Territorio* mapa, int tamanho) {
     
     // Missão 5: Conquistar 2 territórios seguidos em um turno
     // Esta missão requer rastreamento entre turnos
-    // Por simplicidade, consideraremos que se o jogador tiver pelo menos 2 territórios
+    // considerando que se o jogador tiver pelo menos 2 territorios
     if (strstr(missao, "Conquistar 2 territorios seguidos em um turno") != NULL) {
         int territoriosConquistados = 0;
         
@@ -135,7 +135,7 @@ int verificarMissao(char* missao, struct Territorio* mapa, int tamanho) {
             }
         }
         
-        // Para simplificar, consideramos cumprida se tiver 2+ territórios
+        // Para simplificar, consideramos cumprida se tiver 2+ territorios
         return territoriosConquistados >= 2;
     }
     
@@ -151,7 +151,7 @@ void exibirMissao(char* missao) {
     }
 }
 
-// Função de cadastrar territórios
+// Função de cadastro territorios
 void cadastrarTerritorios(struct Territorio* territorios, int quantidade) {
     printf("\n*-*-* CADASTRO DE %d TERRITORIOS *-*-*\n\n", quantidade);
     
@@ -177,7 +177,7 @@ void cadastrarTerritorios(struct Territorio* territorios, int quantidade) {
     }
 }
 
-// Função exibir todos os territórios
+// Função para exibir todos os territorios
 void exibirTerritorios(struct Territorio* territorios, int quantidade) {
     printf("\n*-*-*-* MAPA DOS TERRITORIOS *-*-*-*\n");
     for(int i = 0; i < quantidade; i++) {
@@ -190,7 +190,7 @@ void exibirTerritorios(struct Territorio* territorios, int quantidade) {
     printf("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n\n");
 }
 
-// Função de ataque entre dois territórios
+// Função de ataque entre dois territorios
 void atacar(struct Territorio* atacante, struct Territorio* defensor) {
     int dadoAtacante, dadoDefensor;
     static int conquistasSeguidas = 0; // Para missão 5
@@ -214,14 +214,14 @@ void atacar(struct Territorio* atacante, struct Territorio* defensor) {
     printf("  Defensor: %d\n", dadoDefensor);
     
     if (dadoAtacante >= dadoDefensor) {
-        printf("\n--->> RESULTADO: ATACANTE VENCEU! <<---\n");
+        printf("\n-*-*->> RESULTADO: ATACANTE VENCEU! <<-*-*-\n");
         
         defensor->tropas--;
         
         printf("Defensor perdeu 1 tropa. Tropas restantes: %d\n", defensor->tropas);
         
         if (defensor->tropas <= 0) {
-            printf("\n--->> CONQUISTA! O territorio %s foi conquistado! <<---\n", defensor->nome);
+            printf("\n-*-*->> CONQUISTA! O territorio %s foi conquistado! <<-*-*-\n", defensor->nome);
             
             strcpy(defensor->cor, atacante->cor);
             
@@ -239,7 +239,7 @@ void atacar(struct Territorio* atacante, struct Territorio* defensor) {
             conquistasSeguidas = 0;
         }
     } else {
-        printf("\n--->> RESULTADO: DEFENSOR VENCEU! <<---\n");
+        printf("\n-*-*->> RESULTADO: DEFENSOR VENCEU! <<-*-*-\n");
         
         atacante->tropas--;
         conquistasSeguidas = 0;
@@ -382,7 +382,7 @@ int main() {
     char* missoes[NUM_MISSOES];
     int quantidade;
     
-    // Inicializa gerador de números aleatórios
+    // gerador de números aleatórios
     srand(time(NULL));
     
     printf("*-*-* MUNDO WAR - SISTEMA DE BATALHAS COM MISSOES *-*-*\n\n");
@@ -396,7 +396,7 @@ int main() {
     // Exibe a missão do jogador
     exibirMissao(missaoJogador);
     
-    // Solicita a quantidade de territórios
+    // Solicita a quantidade de territorios
     printf("Quantos territorios deseja cadastrar? (minimo %d): ", MIN_TERRITORIOS);
     scanf("%d", &quantidade);
     limparBuffer();
@@ -416,10 +416,10 @@ int main() {
         return 1;
     }
     
-    // Cadastra os territórios
+    // Cadastra os territorios
     cadastrarTerritorios(territorios, quantidade);
     
-    // Exibe os territórios cadastrados
+    // Exibe os territorios cadastrados
     printf("\n*-*-* TERRITORIOS CADASTRADOS *-*-*\n");
     exibirTerritorios(territorios, quantidade);
     
